@@ -1,16 +1,19 @@
-# trilhapp
+![Alt text](image.png)
 
-A new Flutter project.
+## Conhecendo o Shared Preference
+![Alt text](image-1.png)
 
-## Getting Started
+![Alt text](image-2.png)
 
-This project is a starting point for a Flutter application.
+## Escrevendo e lendo com o Shared Preference
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Criando Tela de configuracoes
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Aplicando Shared Preferences Na Tela de Dados Pessoais
+
+## configurando Classe de Storage
+
+## Usando  a Classe de Storage
+
+
