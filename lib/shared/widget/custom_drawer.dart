@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trilhapp/pages/dados_cadastrais.dart';
+import 'package:trilhapp/pages/configuracao_page.dart';
 import 'package:trilhapp/pages/login_page.dart';
 import 'package:trilhapp/pages/numeros_aleatorios.dart';
 
@@ -63,10 +63,10 @@ class CustomDrawer extends StatelessWidget {
                       )),
                   onTap: () {
                     Navigator.pop(context, 'OK');
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DadosCadastrais()));
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const DadosCadastrais()));
                   },
                 ),
                 const SizedBox(height: 10),
@@ -141,23 +141,12 @@ class CustomDrawer extends StatelessWidget {
                         ],
                       )),
                   onTap: () => {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('AlertDialog Title'),
-                        content: const Text('AlertDialog description'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    )
+                    Navigator.pop(context, 'OK'),
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext bc) =>
+                                const ConfiguracaoPage()))
                   },
                 ),
                 const Divider(),
