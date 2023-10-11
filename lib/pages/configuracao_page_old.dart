@@ -1,17 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:trilhapp/storage/app_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ConfiguracaoPage extends StatefulWidget {
-  const ConfiguracaoPage({super.key});
+class ConfiguracaoPageOld extends StatefulWidget {
+  const ConfiguracaoPageOld({super.key});
 
   @override
-  State<ConfiguracaoPage> createState() => _ConfiguracaoPageState();
+  State<ConfiguracaoPageOld> createState() => _ConfiguracaoPageOldState();
 }
 
-class _ConfiguracaoPageState extends State<ConfiguracaoPage> {
-  var storage = AppStorageService();
+class _ConfiguracaoPageOldState extends State<ConfiguracaoPageOld> {
+  late SharedPreferences storage;
 
   TextEditingController nomeUsuarioController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
@@ -21,6 +21,11 @@ class _ConfiguracaoPageState extends State<ConfiguracaoPage> {
   bool receberPushNotification = false;
   bool temaEscuro = false;
 
+  final chaveNomeUsuario = "chave_nome_usuario";
+  final chaveAltura = "chave_altura";
+  final chaveReceberPushNotification = "chave_receber_push_notification";
+  final chaveTemaEscuro = "chave_tema_escuro";
+
   @override
   void initState() {
     super.initState();
@@ -28,12 +33,15 @@ class _ConfiguracaoPageState extends State<ConfiguracaoPage> {
   }
 
   carregarDados() async {
-    nomeUsuarioController.text = await storage.getConfigNomeUsuario();
-    alturaController.text = (await storage.getConfigAltura()).toString();
-    receberPushNotification = await storage.getConfigReceberPushNotification();
-    temaEscuro = await storage.getConfigTemaEscuro();
+    storage = await SharedPreferences.getInstance();
 
-    setState(() {});
+    setState(() {
+      nomeUsuarioController.text = storage.getString(chaveNomeUsuario) ?? "";
+      alturaController.text = (storage.getDouble(chaveAltura) ?? 0).toString();
+      receberPushNotification =
+          storage.getBool(chaveReceberPushNotification) ?? false;
+      temaEscuro = storage.getBool(chaveTemaEscuro) ?? false;
+    });
   }
 
   @override
@@ -96,8 +104,8 @@ class _ConfiguracaoPageState extends State<ConfiguracaoPage> {
                   FocusManager.instance.primaryFocus?.unfocus();
 
                   try {
-                    storage
-                        .setConfigAltura(double.parse(alturaController.text));
+                    await storage.setDouble(
+                        chaveAltura, double.parse(alturaController.text));
                   } catch (e) {
                     showDialog(
                         context: context,
@@ -118,10 +126,11 @@ class _ConfiguracaoPageState extends State<ConfiguracaoPage> {
                         });
                     return;
                   }
-                  storage.setConfigNomeUsuario(nomeUsuarioController.text);
-                  storage.setConfigReceberPushNotification(
-                      receberPushNotification);
-                  storage.setConfigTemaEscuro(temaEscuro);
+                  await storage.setString(
+                      chaveNomeUsuario, nomeUsuarioController.text);
+                  await storage.setBool(
+                      chaveReceberPushNotification, receberPushNotification);
+                  await storage.setBool(chaveTemaEscuro, temaEscuro);
                   Navigator.pop(context, "OK!");
                 },
                 style: ButtonStyle(
