@@ -24,10 +24,3 @@
 ![Alt text](image-9.png)
 
 
-## Aplicando Shared Preferences Na Tela de Dados Pessoais
-
-## configurando Classe de Storage
-
-## Usando  a Classe de Storage
-
-
